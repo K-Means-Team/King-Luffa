@@ -1,0 +1,9 @@
+{
+  "pages": ["pages/king-luffa/index"],
+  "window": {
+    "navigationBarTitleText": "King Luffa",
+    "navigationBarBackgroundColor": "#0f0f12",
+    "navigationBarTextStyle": "white"
+  },
+  "staticPath": ["script"]
+}
