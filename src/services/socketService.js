@@ -7,14 +7,14 @@ import { apiUrl, wsUrl } from "../config";
 
 const EMIT_INTERVAL_MS = 1200;
 
-export function createDefaultSocket() {
-  return io(wsUrl, { transports: ["websocket", "polling"] });
+export function createDefaultSocket(token) {
+  return io(wsUrl, { transports: ["websocket", "polling"], auth: { token } });
 }
 
-export function createNamespacedSocket(nsPath) {
+export function createNamespacedSocket(nsPath, token) {
   const base = wsUrl.replace(/\/$/, "");
   const path = nsPath.startsWith("/") ? nsPath : `/${nsPath}`;
-  return io(`${base}${path}`, { transports: ["websocket", "polling"] });
+  return io(`${base}${path}`, { transports: ["websocket", "polling"], auth: { token } });
 }
 
 export function attachGameHandlers(socket, handlers) {
