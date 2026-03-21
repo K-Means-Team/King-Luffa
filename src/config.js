@@ -20,7 +20,7 @@ function getEnv() {
 			w?.VITE_API_URL ||
 			"http://localhost:3000",
 		mapboxToken: w?.VITE_MAPBOX_ACCESS_TOKEN || "",
-		dev: false,
+		dev: w?.VITE_DEV || false,
 	};
 }
 
