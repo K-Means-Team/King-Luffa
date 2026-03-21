@@ -69,7 +69,7 @@ function GameScreen() {
 
 	useEffect(() => {
 		if (!session) return console.log("No session");
-		const socket = createDefaultSocket();
+		const socket = createDefaultSocket(session.jwtToken);
 		socketRef.current = socket;
 		throttledEmitRef.current =
 			createThrottledPositionEmitter(socket);

@@ -71,7 +71,7 @@ export function MapView({ userPosition, otherPlayers, hillPolygon }) {
 	return (
 		<Map
 			ref={mapRef}
-			mapboxjwtToken={token}
+			mapboxAccessToken={token}
 			initialViewState={initialView}
 			onLoad={onLoad}
 			style={{ width: "100%", height: "100%" }}
