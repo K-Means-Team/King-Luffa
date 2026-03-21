@@ -1,40 +1,16 @@
 {
-	"description": "项目配置文件。",
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"nodeModules": true,
-		"autoAudits": false,
-		"uploadWithSourceMap": true,
-		"uglifyFileName": true,
-		"remoteDebugLogEnable": true,
-		"prefetch": false
-	},
-	"compileType": "game",
-	"libVersion": "1.9.94",
-	"appid": "wx5dcb7161710465c8",
-	"projectname": "EncHackApp-01",
-	"LuffaToolsappid": "mpaf3t4krtwp8epc",
-	"scripts": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": []
-		}
-	}
+  "description": "King Luffa — SuperBox mini program shell (web-view → script/)",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "nodeModules": false,
+    "autoAudits": false
+  },
+  "compileType": "miniprogram",
+  "appid": "",
+  "projectname": "King Luffa",
+  "miniprogramRoot": "./"
 }
