@@ -17,6 +17,7 @@
 
 - Added SuperBox mini program shell: `app.json` with `staticPath: ["script"]`, `pages/king-luffa/` web-view pointing at `/script/index.html`, `project.config.json`, `app.js`.
 - `npm run build:superbox` runs Vite with `SUPERBOX=1` (output `script/`, relative `base` for offline assets).
+- Added `wxService.js` to expose native `previewImage` via `WeixinJSBridge.invoke` inside the Luffa shell environment.
 
 ## [1.1.1] — 2026-03-21
 

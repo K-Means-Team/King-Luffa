@@ -6,7 +6,7 @@ export function WelcomeScreen() {
 
 	const handleLuffaLogin = async () => {
 		clearError();
-		// Simulate getting a userToken from Luffa Account
+		// Simulate getting a userId from Luffa Account
 		const token = `dev_${Math.floor(Math.random() * 10000)}`;
 		await login(token);
 	};

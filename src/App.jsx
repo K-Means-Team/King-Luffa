@@ -91,8 +91,7 @@ function GameScreen() {
 			onPlayers: (p) => {
 				const list = p.players ?? p.data ?? [];
 				const selfId =
-					session?.sessionId ||
-					session?.userToken;
+					session?.sessionId || session?.userId;
 				setOtherPlayers(
 					list
 						.map((pl, i) => ({
@@ -150,7 +149,7 @@ function GameScreen() {
 			return console.log("No session or position");
 		const te = throttledEmitRef.current;
 		if (!te) return console.log("No throttled emit ref");
-		const uid = session.sessionId || session.userToken || "local";
+		const uid = session.sessionId || session.userId || "local";
 		console.log(
 			"Sending position:",
 			position.lng,
@@ -159,7 +158,7 @@ function GameScreen() {
 			captured,
 		);
 		console.log(
-			`UID of user: ${uid} / ${session?.sessionId} / ${session?.userToken}`,
+			`UID of user: ${uid} / ${session?.sessionId} / ${session?.userId}`,
 		);
 		te.emitPosition(position.lng, position.lat, uid, captured);
 	}, [position, captured, session]);
@@ -170,7 +169,7 @@ function GameScreen() {
 			if (!sock) return console.log("No socket");
 			const uid =
 				session?.sessionId ||
-				session?.userToken ||
+				session?.userId ||
 				"local";
 			emitChat(sock, text, uid);
 			setMessages((prev) => [
