@@ -4,14 +4,14 @@
    - **Method:** `POST`
    - **Endpoint:** `/api/session`
    - **Purpose:** Authenticates the user and sets up the game session.
-   - **Request Body:** `{ "userToken": "string" }`
-   - **Expected Response:** `{ "data": { "sessionId": "string", "accessToken": "string", "user": { "name": "string" } } }`
+   - **Request Body:** `{ "userId": "string" }`
+   - **Expected Response:** `{ "data": { "sessionId": "string", "jwtToken": "string", "user": { "name": "string" } } }`
 
 2. **Logout**
    - **Method:** `POST`
    - **Endpoint:** `/api/session/logout`
    - **Purpose:** Terminates the active session.
-   - **Headers:** `Authorization: Bearer <accessToken>`
+   - **Headers:** `Authorization: Bearer <jwtToken>`
    - **Expected Response:** `200 OK`
 
 ---

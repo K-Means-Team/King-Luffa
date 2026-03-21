@@ -10,29 +10,30 @@ The Luffa mini program shell lives at the repo root (`app.json`, `project.config
 
 ## Structure
 
-| Path | Role |
-|------|------|
-| `src/main.jsx` | React root, global styles import |
-| `src/config.js` | Central env (no import.meta); Vite define or `window.__KING_LUFFA_ENV__` |
-| `src/App.jsx` | Session gate, map + overlay, game state wiring |
-| `src/index.css` | Dark theme tokens (purple/indigo), layout resets |
-| `src/context/AuthContext.jsx` | Session from `POST /api/session`, exposes user/session |
-| `src/services/authService.js` | REST session init |
-| `src/services/geolocationService.js` | Luffa `watchPosition` or `wx.getLocation` polling; dev mock without wx |
-| `src/services/socketService.js` | Socket.io client, throttled `position` emit, chat/zone handlers |
-| `src/services/zoneService.js` | Turf buffer + `booleanPointInPolygon` |
-| `src/hooks/useGeolocation.js` | Subscribes to geolocation service |
-| `src/hooks/useMapMarkers.js` | Throttles coords for map follow (no full map remount) |
-| `src/hooks/useZoneCapture.js` | Grace period (2.5s) inside hill before `captured` |
-| `src/components/MapView.jsx` | Mapbox map, hill layer, player markers |
-| `src/components/PlayerMarker.jsx` | Circle (self) / red diamond (others) |
-| `src/components/GameOverlay.jsx` | HUD shell |
-| `src/components/CountdownTimer.jsx` | 1h countdown |
-| `src/components/BuffsDebuffs.jsx` | Active buff list |
-| `src/components/ChatLog.jsx` | Transparent log + Send |
-| `src/components/ProfileButton.jsx` | Opens sidebar |
-| `src/components/Points.jsx` | Score display |
-| `src/components/AccountSidebar.jsx` | Account panel |
+| Path                                 | Role                                                                     |
+| ------------------------------------ | ------------------------------------------------------------------------ |
+| `src/main.jsx`                       | React root, global styles import                                         |
+| `src/config.js`                      | Central env (no import.meta); Vite define or `window.__KING_LUFFA_ENV__` |
+| `src/App.jsx`                        | Session gate, map + overlay, game state wiring                           |
+| `src/index.css`                      | Dark theme tokens (purple/indigo), layout resets                         |
+| `src/context/AuthContext.jsx`        | Session from `POST /api/session`, exposes user/session                   |
+| `src/services/authService.js`        | REST session init                                                        |
+| `src/services/geolocationService.js` | Luffa `watchPosition` or `wx.getLocation` polling; dev mock without wx   |
+| `src/services/socketService.js`      | Socket.io client, throttled `position` emit, chat/zone handlers          |
+| `src/services/wxService.js`          | WeChat/Luffa JSBridge utilities (e.g., `imagePreview`)                   |
+| `src/services/zoneService.js`        | Turf buffer + `booleanPointInPolygon`                                    |
+| `src/hooks/useGeolocation.js`        | Subscribes to geolocation service                                        |
+| `src/hooks/useMapMarkers.js`         | Throttles coords for map follow (no full map remount)                    |
+| `src/hooks/useZoneCapture.js`        | Grace period (2.5s) inside hill before `captured`                        |
+| `src/components/MapView.jsx`         | Mapbox map, hill layer, player markers                                   |
+| `src/components/PlayerMarker.jsx`    | Circle (self) / red diamond (others)                                     |
+| `src/components/GameOverlay.jsx`     | HUD shell                                                                |
+| `src/components/CountdownTimer.jsx`  | 1h countdown                                                             |
+| `src/components/BuffsDebuffs.jsx`    | Active buff list                                                         |
+| `src/components/ChatLog.jsx`         | Transparent log + Send                                                   |
+| `src/components/ProfileButton.jsx`   | Opens sidebar                                                            |
+| `src/components/Points.jsx`          | Score display                                                            |
+| `src/components/AccountSidebar.jsx`  | Account panel                                                            |
 
 ## Data flow
 
@@ -53,5 +54,5 @@ Values read from `src/config.js`, which uses Vite `define` at build time or `win
 
 ## Backend alignment
 
-- Session: `POST /api/session` body `{ userToken }` (see LuffaKing_Backend).
+- Session: `POST /api/session` body `{ userId }` (see LuffaKing_Backend).
 - Socket: default namespace; optional paths `/lobby`, `/matchmaking-{id}` when server adds them.
