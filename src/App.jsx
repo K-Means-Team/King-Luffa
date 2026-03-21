@@ -86,7 +86,6 @@ function GameScreen() {
 								"player",
 						),
 						text: String(p.content ?? ""),
-						jwtToken: session?.jwtToken,
 					},
 				]),
 			onPlayers: (p) => {
