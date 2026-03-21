@@ -6,7 +6,7 @@ React + Mapbox GL frontend for King Luffa (King of the Hill) inside SuperBox/Luf
 
 ## SuperBox packaging
 
-The Luffa mini program shell lives at the repo root (`app.json`, `project.config.json`, `pages/king-luffa/`). Offline H5 is emitted into **`script/`** (see [web-view staticPath](https://luffa.im/SuperBox/docs/en/miniProDevelopmentGuide/Components/openCapabilities.html)): `app.json` lists `"staticPath": ["script"]`, and the page uses `<web-view src="/script/index.html">`. Run **`npm run build:superbox`** (sets `SUPERBOX=1`) so Vite builds with `base: './'` and `outDir: 'script'`. Open this folder in Luffa Cloud IDE; set `appid` in `project.config.json` when you have one.
+The Luffa mini program shell lives at the repo root (`app.json`, `project.config.json`, `pages/king-luffa/`). **LuffaTools expects page markup as `.qml`** (not `.wxml`): e.g. `pages/king-luffa/index.qml` with the `web-view`. Offline H5 is emitted into **`script/`** (see [web-view staticPath](https://luffa.im/SuperBox/docs/en/miniProDevelopmentGuide/Components/openCapabilities.html)): `app.json` lists `"staticPath": ["script"]`, and the page uses `<web-view src="/script/index.html">`. Run **`npm run build:superbox`** (sets `SUPERBOX=1`) so Vite builds with `base: './'` and `outDir: 'script'`. The SuperBox build uses IIFE format and removes `type="module"` from the script tag so the Luffa/WeChat web-view (which doesn't support `import.meta` or ES modules) can load the bundle. Open this folder in Luffa Cloud IDE; set `appid` in `project.config.json` when you have one.
 
 ## Structure
 
@@ -36,11 +36,12 @@ The Luffa mini program shell lives at the repo root (`app.json`, `project.config
 
 ## Data flow
 
-1. User enters token → `authService.initSession` → `AuthContext` holds session.
-2. `geolocationService` streams `{ lng, lat }` → `useGeolocation` → `App` state.
-3. `zoneService` builds hill polygon from server center + radius → `useZoneCapture` compares position each tick.
-4. `socketService` emits throttled positions; receives `players`, `hill`, `chat`, `points`.
-5. `MapView` receives `userPosition`, `otherPlayers`, `hillGeoJson`; markers update `longitude`/`latitude` only.
+1. User starts at `WelcomeScreen` → clicks Login with Luffa Account → `authService.initSession` → `AuthContext` holds session.
+2. App routes to `LobbyScreen` → user clicks Find Match → `MatchmakingScreen` simulates delay.
+3. App routes to `GameScreen`. `geolocationService` streams `{ lng, lat }` → `useGeolocation` → `App` state.
+4. `zoneService` builds hill polygon from server center + radius → `useZoneCapture` compares position each tick.
+5. `socketService` emits throttled positions; receives `players`, `hill`, `chat`, `points`.
+6. `MapView` receives `userPosition`, `otherPlayers`, `hillGeoJson`; markers update `longitude`/`latitude` only.
 
 ## Environment
 

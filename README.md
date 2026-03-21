@@ -26,3 +26,24 @@ Real-time King of the Hill frontend: React + Mapbox, Turf zones, Socket.io. Runs
 ## Backend
 
 [LuffaKing_Backend](https://github.com/K-Means-Team/LuffaKing_Backend) — session and Socket.io.
+
+### Generating a JWT for local dev
+
+To connect to the backend, paste a valid JWT as the **user token** on the login screen. Generate one with:
+
+```bash
+node scripts/generate-jwt.js
+```
+
+For production secrets, set env vars (or export from the backend `.env`):
+
+```bash
+export JWT_REFRESH_SECRET=your_refresh_token_secret_key_here_change_in_production
+export JWT_ISSUER=LuffaDevApp
+export JWT_AUDIENCE=LuffaUsers
+node scripts/generate-jwt.js
+```
+
+Options:
+- `--type=access` — sign with `JWT_ACCESS_SECRET` instead of refresh secret
+- `--sub=user-123` — custom subject (user ID)

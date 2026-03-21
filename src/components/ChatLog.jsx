@@ -1,12 +1,28 @@
 /**
- * Scrollable lobby chat with transparent panel and text-style send control.
+ * Scrollable lobby chat with transparency and idle fade-away.
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function ChatLog({ messages, onSend }) {
   const [draft, setDraft] = useState("");
+  const [isIdle, setIsIdle] = useState(false);
   const listRef = useRef(null);
+  const idleTimerRef = useRef(null);
+
+  const resetIdleTimer = () => {
+    setIsIdle(false);
+    clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => setIsIdle(true), 5000);
+  };
+
+  useEffect(() => {
+    resetIdleTimer();
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+    return () => clearTimeout(idleTimerRef.current);
+  }, [messages, draft]);
 
   const submit = () => {
     const t = draft.trim();
@@ -17,7 +33,7 @@ export function ChatLog({ messages, onSend }) {
 
   return (
     <div className="hud-chat">
-      <ul ref={listRef} className="hud-chat__log">
+      <ul ref={listRef} className={`hud-chat__log ${isIdle && !draft ? "hud-chat__log--idle" : ""}`}>
         {messages.map((m) => (
           <li key={m.id} className="hud-chat__line">
             <span className="hud-chat__who">{m.who}:</span> {m.text}

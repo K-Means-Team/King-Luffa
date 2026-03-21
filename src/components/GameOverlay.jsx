@@ -22,6 +22,9 @@ export function GameOverlay({
   return (
     <div className="game-overlay">
       <div className="game-overlay__top">
+        <div className="game-overlay__top-left">
+          <ProfileButton onClick={() => setSidebarOpen(true)} />
+        </div>
         <div className="game-overlay__top-mid">
           <CountdownTimer />
         </div>
@@ -29,11 +32,10 @@ export function GameOverlay({
           <BuffsDebuffs items={buffs} />
         </div>
       </div>
-      <div className="game-overlay__mid-left">
-        <ChatLog messages={messages} onSend={onChatSend} />
-      </div>
       <div className="game-overlay__bottom">
-        <ProfileButton onClick={() => setSidebarOpen(true)} />
+        <div className="game-overlay__bottom-left">
+          <ChatLog messages={messages} onSend={onChatSend} />
+        </div>
         <Points value={points} />
       </div>
       <AccountSidebar

@@ -6,9 +6,12 @@ export function AccountSidebar({ open, onClose, session, onLogout }) {
   if (!open) return null;
   return (
     <>
-      <button type="button" className="sidebar-backdrop" aria-label="Close" onClick={onClose} />
+      <div className="sidebar-backdrop" role="button" tabIndex={0} onClick={onClose} onKeyDown={(e) => e.key === 'Escape' && onClose()} aria-label="Close" />
       <aside className="sidebar-panel" role="dialog" aria-label="Account">
-        <h2 className="sidebar-panel__title">Account</h2>
+        <h2 className="sidebar-panel__title">
+          <span>Account</span>
+          <button className="sidebar-panel__close" onClick={onClose}>×</button>
+        </h2>
         <dl className="sidebar-panel__dl">
           <dt>Session</dt>
           <dd>{session?.sessionId || "—"}</dd>

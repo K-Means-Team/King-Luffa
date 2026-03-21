@@ -16,6 +16,9 @@ import {
   createThrottledPositionEmitter,
   emitChat,
 } from "./services/socketService";
+import { WelcomeScreen } from "./components/WelcomeScreen";
+import { LobbyScreen } from "./components/LobbyScreen";
+import { MatchmakingScreen } from "./components/MatchmakingScreen";
 
 let msgId = 0;
 function nextMsgId() {
@@ -23,38 +26,6 @@ function nextMsgId() {
   return `m-${msgId}`;
 }
 
-function LoginScreen() {
-  const { login, loading, error, clearError } = useAuth();
-  const [token, setToken] = useState("");
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    clearError();
-    await login(token.trim());
-  };
-
-  return (
-    <div className="login-screen">
-      <h1 className="login-screen__title">King Luffa</h1>
-      <form className="login-screen__form" onSubmit={onSubmit}>
-        <label className="login-screen__label">
-          User token
-          <input
-            className="login-screen__input"
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            autoComplete="off"
-            placeholder="Paste token"
-          />
-        </label>
-        <button type="submit" className="login-screen__submit" disabled={loading || !token.trim()}>
-          {loading ? "Connecting…" : "Enter"}
-        </button>
-        {error ? <p className="login-screen__error">{error}</p> : null}
-      </form>
-    </div>
-  );
-}
 
 function GameScreen() {
   const { session, logout } = useAuth();
@@ -182,5 +153,16 @@ function GameScreen() {
 
 export default function App() {
   const { session } = useAuth();
-  return session ? <GameScreen /> : <LoginScreen />;
+  const [matchState, setMatchState] = useState("lobby"); // lobby, matchmaking, game
+
+  if (!session) return <WelcomeScreen />;
+
+  if (matchState === "lobby") {
+    return <LobbyScreen onMatchFound={() => setMatchState("matchmaking")} />;
+  }
+  if (matchState === "matchmaking") {
+    return <MatchmakingScreen onReady={() => setMatchState("game")} />;
+  }
+
+  return <GameScreen onReturnLobby={() => setMatchState("lobby")} />;
 }
